@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Login</title>
+    <title>Food Dude</title>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 </head>
 
@@ -11,19 +11,19 @@
     <div class="homepage">
         <div class="reg-bar">
             @guest
-            <a href="{{URL::to('login')}}">Login</a>
-            <a href="{{URL::to('register')}}">Register</a>
+                <a href="{{ URL::to('login') }}">Login</a>
+                <a href="{{ URL::to('register') }}">Register</a>
             @else
-            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                    {{ __('Logout') }}
-                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                        document.getElementById('logout-form').submit();">
+                        {{ __('Logout') }}
+                    </a>
 
-                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                    @csrf
-                </form>
-            </div>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
+                </div>
             @endguest
         </div>
         <div class="Tanjir">
@@ -35,7 +35,7 @@
                 </a>
             </div>
             <div class="part2">
-                <a href="{{URL::to('iamrestaurant')}}">
+                <a href="{{ URL::route('iamrestaurant-login') }}">
                     <h3>I am restaurant</h3>
                 </a>
             </div>
