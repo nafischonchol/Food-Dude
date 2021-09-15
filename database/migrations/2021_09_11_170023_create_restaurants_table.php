@@ -15,18 +15,20 @@ class CreateRestaurantsTable extends Migration
     {
         Schema::create('restaurants', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->nullable();
+            
             $table->string('image')->nullable();
-            $table->string('title');
+            $table->string('res_name');
+            $table->string('email');
+            $table->string('mobile');
+            $table->string('owner');
             $table->text('location');
-            $table->string('locale');
+            $table->text('city');
             $table->text('description');
-            $table->text('hours_of_operation');
-            $table->text('dining_style');
-            $table->text('dress_code');
-            $table->text('website');
-            $table->text('contact');
+
+            $table->string('website')->nullable();
             $table->integer('view_count')->default(0);
+            $table->string('pass');
+
             $table->timestamps();
         });
     }
