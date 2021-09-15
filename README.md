@@ -1,1 +1,2 @@
-This system help you to reserved resturant. And ingredients for cooks.
+Restaurant Reservation
+System with eChef
