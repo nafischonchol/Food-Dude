@@ -68,7 +68,15 @@ Route::get('/CookFood',function (){
 });
 
 
-Route::get('iamrestaurant',[IamRestaurant::class,'iar']);
+
+Route::get('iamrestaurant-login',function(){
+    return view('iamrestaurant.login');
+})->name('iamrestaurant-login');
+
+Route::get('iamrestaurant-reg',function(){
+    return view('iamrestaurant.reg');
+})->name('iamrestaurant-reg');
+
 
 Route::get('search',[SearchRestaurantController::class,'sr']);
 
