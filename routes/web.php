@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\IamRestaurant;
 use App\Http\Controllers\RecentallViewRestaurantController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\RestaurantController;
@@ -10,16 +9,37 @@ use App\Models\Restaurant;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+use App\Http\Controllers\IamRestaurant;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\YourTableController;
+
+
+
+
+//iamresturant
+Route::get('iamrestaurant-login',function(){
+    return view('iamrestaurant.login');
+})->name('iamrestaurant-login');
+Route::post('iamrestaurant-login',[IamRestaurant::class,'login'])->name('iamrestaurant-login');
+
+Route::get('iamrestaurant-reg',function(){
+    return view('iamrestaurant.reg');
+})->name('iamrestaurant-reg');
+Route::post('iamrestaurant-reg',[IamRestaurant::class,'createResturant'])->name('iamrestaurant-reg');
+
+//without login, can't access these route
+Route::group(['middleware'=>['resturantLogin']],function(){
+    Route::get('mainmenu',function(){
+        return view('iamrestaurant.mainmenu');
+    })->name('mainmenu');
+    
+    Route::get('orders',[OrderController::class,'index'])->name('orders');
+    Route::get('your-table',[YourTableController::class,'index'])->name('your-table');
+    Route::get('resturant-logout',[IamRestaurant::class,'logout'])->name('resturant-logout');
+});
+
+
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -69,13 +89,6 @@ Route::get('/CookFood',function (){
 
 
 
-Route::get('iamrestaurant-login',function(){
-    return view('iamrestaurant.login');
-})->name('iamrestaurant-login');
-
-Route::get('iamrestaurant-reg',function(){
-    return view('iamrestaurant.reg');
-})->name('iamrestaurant-reg');
 
 
 Route::get('search',[SearchRestaurantController::class,'sr']);
