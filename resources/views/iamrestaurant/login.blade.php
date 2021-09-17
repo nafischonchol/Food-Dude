@@ -30,20 +30,27 @@
                         <div class="card-body p-0">
                             <!-- Tab panes -->
                             <div class="tab-content">
-                                <div class="tab-pane active p-3" id="LogIn_Tab" role="tabpanel">
-                                    <form class="form-horizontal auth-form" id="authform">
+                                <div class="tab-pane active p-3" >
+                                    <form class="form-horizontal" method="post" action="{{ route('iamrestaurant-login') }}">
+                                        @csrf
+
+                                        @if (session('warning'))
+                                            <span class="alert alert-danger d-block" role="alert">
+                                                <strong>{{ session('warning') }}</strong>
+                                            </span>
+                                        @endif
                                         <div class="form-group mb-2">
-                                            <label for="username">Username</label>
+                                            <label >Mobile</label>
                                             <div class="input-group">
-                                                <input type="text" class="form-control" name="username" id="username" placeholder="Enter username">
+                                                <input type="text" class="form-control" name="mobile" placeholder="Enter mobile">
                                             </div>
                                         </div>
                                         <!--end form-group-->
 
                                         <div class="form-group mb-2">
-                                            <label for="userpassword">Password</label>
+                                            <label >Password</label>
                                             <div class="input-group">
-                                                <input type="password" class="form-control" name="password" id="userpassword" placeholder="Enter password">
+                                                <input type="password" class="form-control" name="password" placeholder="Enter password">
                                             </div>
                                         </div>
                                         <!--end form-group-->
@@ -51,28 +58,19 @@
                                         <div class="form-group row my-3">
                                             <div class="col-sm-6">
                                                 <div class="custom-control custom-switch switch-success">
-                                                    <input type="checkbox" class="custom-control-input"
-                                                        id="customSwitchSuccess">
-                                                    <label class="custom-control-label text-muted"
-                                                        for="customSwitchSuccess">Remember me</label>
+                                                    <input type="checkbox" class="custom-control-input" id="customSwitchSuccess">
+                                                    <label class="custom-control-label text-muted">Remember me</label>
                                                 </div>
                                             </div>
                                             <!--end col-->
-                                            <div class="col-sm-6 text-right">
-                                                {{-- <a href="#" class="text-muted font-13"><i class="dripicons-lock"></i> Forgot password?</a> --}}
-                                            </div>
-                                            <!--end col-->
+                             
                                         </div>
                                         <!--end form-group-->
 
                                         <div class="form-group mb-0 row">
                                             <div class="col-12">
-
-                                                <button class="btn btn-primary btn-block waves-effect waves-light"
-                                                    id="btnlogin" type="button">
-                                                    <span id="loginspinner" class="mr-2" role="status"
-                                                        aria-hidden="true"></span>
-                                                    Log In <i class="fas fa-sign-in-alt ml-1"></i>
+                                                <button class="btn btn-primary btn-block " id="btnlogin" type="submit">
+                                                    Log In 
                                                 </button>
                                             </div>
                                             <!--end col-->
