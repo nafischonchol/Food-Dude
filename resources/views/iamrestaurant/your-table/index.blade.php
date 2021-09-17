@@ -18,7 +18,7 @@
                             </div>
 
                             <div class="col-md-4 text-right">
-                                <a class="btn btn-warning" href="{{ url('stock-form') }}"> Create Table</a>
+                                <a class="btn btn-warning" href="{{ route('create-table') }}"> Create Table</a>
                             </div>
                             <div class="col-md-12">
                                 @if (session('success'))
@@ -36,10 +36,11 @@
                         <thead>
                             <tr>
                                 <th>SI</th>
-                                <th>Hours Of tabel</th>
+                                <th>Hours</th>
                                 <th>Table Qty</th>
-                                <th>Available</th>
-                                <th>Details</th>
+                                <th>Status</th>
+                                <th>Action</th>
+
                             </tr>
                         </thead>
                         <tbody>
@@ -48,11 +49,18 @@
                                     <tr>
                                         
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $item->xbrand }}</td>
-                                        <td>{{ $item->pharmaceutical }}</td>
-                                        <td>{{ $item->avi }}</td>
+                                        <td>{{ $item->hours }}</td>
+                                        <td>{{ $item->tableQty }}</td>
                                         <td>
-                                            <a href='stock-tran-half-details/{{ $item->xcode }}' class="btn btn-primary">Details</a>
+                                            @if($item->zactive==1)
+                                                {{'Active'}}
+                                            @else
+                                                {{'Inactive'}}
+                                            @endif
+                                            
+                                        </td>
+                                        <td>
+                                            <a href='{{ route("your-table-edit",[$item->id]) }}' class="btn btn-primary">Edit</a>
                                         </td>
                                     </tr>
                                 @endforeach

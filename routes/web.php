@@ -35,6 +35,14 @@ Route::group(['middleware'=>['resturantLogin']],function(){
     
     Route::get('orders',[OrderController::class,'index'])->name('orders');
     Route::get('your-table',[YourTableController::class,'index'])->name('your-table');
+
+    Route::get('create-table',function(){
+        return view('iamrestaurant.your-table.create-table');
+    })->name('create-table');
+    Route::Post('create-table',[YourTableController::class,'create'])->name('create-table');
+    Route::get('your-table-edit/{id}',[YourTableController::class,'editForm'])->name('your-table-edit');
+    Route::post('table-edit',[YourTableController::class,'edit'])->name('table-edit');
+    
     Route::get('resturant-logout',[IamRestaurant::class,'logout'])->name('resturant-logout');
 });
 
