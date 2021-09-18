@@ -101,27 +101,3 @@
 
 @endsection
 
-@section('js')
-
-    <script>
-        
-        $(document).ready(function(){
-
-            $("#pharmaceutical_xsl").change(function(){
-               var v=$("#pharmaceutical_xsl").val();
-               $('#xcode').find('option').remove().end();  //remove old option 
-               if(v.length>0)
-               {
-                    $.get('getBrand/'+v,function(data){
-                        for (let i = 0; i < data.length; ++i) {
-                            // console.log(data[i]['xcode']);
-                            $('#xcode').append(new Option(data[i]['xbrand'], data[i]['xcode'])) //add new option 
-
-                        }
-                        // console.log(data);
-                    });
-               }
-            });
-        });
-    </script>
-@endsection
