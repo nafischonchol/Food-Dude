@@ -7,27 +7,54 @@ use App\Models\Restaurant;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Image;
+use Illuminate\Support\Facades\DB;
+
 
 
 class IamRestaurant extends Controller
 {
 
+    function resturantProfile()
+    {
+        $res_id=session('res_id');
+        $data=Restaurant::where('id',$res_id)->get();
+        return view('iamrestaurant.setting.profile',['data'=>$data]);
+    }
+
+    function editForm()
+    {
+        $res_id=session('res_id');
+        $data=Restaurant::where('id',$res_id)->get();
+        return view('iamrestaurant.setting.edit',['data'=>$data]);
+    }
+
+    function updateResturnat(Request $req)
+    {
+       
+        Restaurant::where('id',session('res_id'))->update(['mobile'=>$req->input('mobile'),'owner'=>$req->input('owner'),'city'=>$req->input('city'),'location'=>$req->input('location'),'note'=>$req->input('note'),'diningInfo'=>$req->input('diningInfo'),'email'=>$req->input('email'),'res_name'=>$req->input('res_name'),'website'=>$req->input('website'),'description'=>$req->input('description')]);
+        
+        return redirect('resturant-profile')->with('success','Update successfully!');
+    }
+
     function login(Request $req)
     {
-        $restaurant = Restaurant::where('mobile',$req->input('mobile'))->first();
-        $res = $restaurant->getRawOriginal();
-    
-        $hashedPassword=$res['pass'];
+        // $restaurant = Restaurant::where('mobile',$req->input('mobile'))->first();
+        $data=DB::select('select * from restaurants where mobile="'.$req->mobile.'"');
+
+        if(empty($data[0]))
+            return back()->with('warning',"Mobile is incorrect!");
+
+        $res=$data[0];
+        $hashedPassword=$res->pass;
         if (Hash::check($req->input('password'), $hashedPassword)) 
         {
             session()->put('resturant-login','True');
             session()->put('role','resturant-admin');
-            session()->put('res_id',$res['id']);
-            session()->put('mobile',$res['mobile']);
+            session()->put('res_id',$res->id);
+            session()->put('mobile',$res->mobile);
             session()->put('zrole','resturant-admin');
-            session()->put('owner',$res['owner']);
-            session()->put('res_name',$res['res_name']);
-            // return back()->with('warning',"Login Succes!");
+            session()->put('owner',$res->owner);
+            session()->put('res_name',$res->res_name);
             return redirect('mainmenu');
 
         }
@@ -69,6 +96,9 @@ class IamRestaurant extends Controller
         $restaurant->location = $req->location;
         $restaurant->website = $req->website;
         $restaurant->image = $filename;
+        $restaurant->diningInfo=$req->diningInfo;
+        $restaurant->note=$req->note;
+
 
         $restaurant->pass = Hash::make($req->pass);
          
