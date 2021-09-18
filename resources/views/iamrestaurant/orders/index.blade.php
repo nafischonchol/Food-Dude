@@ -30,36 +30,21 @@
                 </div> <!-- /.card-header -->
 
                 <div class="card-body">
-                    <form action='update-order-status' method="post">
-                        @csrf
-                        <div class="row mb-4">
-                            <div class="col">
-                                <p  class="btn btn-success form-control" name="print" id="print">Print</p>
-                            </div>
-                            <div class="col">
-                                <input type='submit' class="btn btn-danger form-control action_submit" value='Cancel' name="submit">
-                            </div>
-                            <div class="col">
-                                <input type='submit' class="btn btn-warning form-control action_submit" value='CSV Download' name="submit">
-                            </div>
-                            <div class="col">
-                                <input type='submit' class="btn btn-info form-control" value='All not printed' name="submit">
-                            </div>
-                            {{-- <div class="col">
-                                <input type='submit' class="btn btn-info form-control" value='All not confirmed' name="submit">
-                            </div> --}}
-                        </div>
+                    
+                       
                         <table id="example" class="table table-bordered table-hover" style="width:100%">
                             <thead>
                                 <tr>
                                     <th>SI</th>
+                                    <th>Name</th>
+                                    <th>Mobile</th>
+                                    <th>Email</th>
                                     <th>Date</th>
-                                    <th>Invoice</th>
-                                    <th>Brand Name</th>
-                                    <th>Amount</th>
+                                    <th>Hour</th>
+                                    <th>People</th>
+                                    <th>Special Request</th>
                                     <th>Status</th>
-                                    {{-- <th>Action</th> --}}
-                                    <th>View</th>
+                                    
                                 </tr>
                             </thead>
                             <tbody>
@@ -68,66 +53,21 @@
                                     @foreach ($data as $item)
                                         <tr>
                                             <td>{{$loop->iteration}}</td>
-                                            <td>{{$item->xdate}}</td>
-                                            <td>{{$item->invoice}}</td>
-                                            <td>{{$item->xbrand}}</td>
-                                            <td>{{$item->xamount}}</td>
-                                            @php
-                    
-                                                switch($item->xflag)
-                                                {
-                                                    case '1':
-                                                        $flag='New Order';
-                                                        break;
-                                                    case '2':
-                                                        $flag='Confirmed';
-                                                        break;
-                                                    case '3':
-                                                        $flag='Printed';
-                                                        break;
-                                                    case '4':
-                                                        $flag='Shipped';
-                                                        break;
-                                                    case '5':
-                                                        $flag='Delivered';
-                                                        break;
-                                                   
-                                                    case '6':
-                                                        $flag='Cancel';
-                                                        break;
-                                                    case '7':
-                                                        $flag='Returned';
-                                                        break;
-                                                    case '8':
-                                                        $flag='Partial';
-                                                        break;
-                                                    default:
-                                                        $flag='Other';
-                                                        break;
-                                                }
-                                               
-                                            @endphp
-                                            {{-- <td>{{$flag}}</td> --}}
-                                            @if ($item->xflag==1)
-                                                <td><a class="btn btn-warning" href="{{ url('confirm-order/'.$item->invoice) }}"> Confirm </a> </td>
-                                            @elseif ($item->xflag==2)
-                                                <td><input type="checkbox" value="{{$item->invoice}}" name="xflag[]" class='check_class'/></td>
-                                            @elseif($item->xflag==6)
-                                                <td><h3 class='text-danger'>X</h3></td>
-                                            @else
-                                                
-                                                <td>{{$flag}}</td>
+                                            <td>{{$item->fName." ".$item->lname}}</td>
+                                            <td>{{$item->mobile}}</td>
+                                            <td>{{$item->email}}</td>
+                                            <td>{{$item->date}}</td>
+                                            <td>{{$item->hour}}</td>
+                                            <td>{{$item->people}}</td>
+                                            <td>{{$item->specialReq}}</td>
 
-                                            @endif
-                                            <td>
-                                                <a class="btn btn-outline-primary" href="{{ url('order-details/'.$item->invoice) }}"> Details </a> 
-                                            </td>
+                                            <td>{{$item->zactive}}</td>
                                         </tr>
                                     @endforeach
                                 @endisset
                             </tbody>
                         </table>
-                    </form>
+                   
 
                 </div>
 
