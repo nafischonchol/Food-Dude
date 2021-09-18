@@ -17,7 +17,7 @@
                         <div class="card">
                             <div class="card-body p-0 auth-header-box bg-dark">
                                 <div class="text-center p-3">
-                                    <a href="index.html" class="logo logo-admin">
+                                    <a href="{{route('/')}}" class="logo logo-admin">
 
                                         <img src="{{ asset('images/logo/fooddude.jpeg') }}" height="50" alt="logo"
                                             class="auth-logo">
@@ -81,11 +81,18 @@
                                                     </div>
                                                 </div>
                                                 <div class="form-group mb-2">
-                                                    <label for="Image">Image<span class="text-danger">*</span></label>
+                                                    <label for="res_name">Note For Customer</label>
                                                     <div class="input-group">
-                                                        <input type="file" class="form-control form-control-sm" name="image" required>
+                                                        <textarea  class="form-control form-control-sm" name="note" rows="3" >{{ old('note') }}</textarea>
                                                     </div>
                                                 </div>
+                                                <div class="form-group mb-2">
+                                                    <label for="res_name">Important dining information</label>
+                                                    <div class="input-group">
+                                                        <textarea  class="form-control form-control-sm" name="diningInfo" rows="3" >{{ old('diningInfo') }}</textarea>
+                                                    </div>
+                                                </div>
+                                                
                                                 <!--end form-group-->
                                                 <hr>
 
@@ -105,22 +112,32 @@
                                                         <input type="text"  value="{{ old('res_name') }}" class="form-control form-control-sm" name="res_name" id="res_name" placeholder="Resturant Name" required>
                                                     </div>
                                                 </div>
-                                                <div class="form-group mb-2">
-                                                    <label for="res_name">Description</label>
-                                                    <div class="input-group">
-                                                        <input type="text" value="{{ old('description') }}" class="form-control form-control-sm" name="description" id="description" placeholder="Resturant Description">
-                                                    </div>
-                                                </div>
+                                                
+                                               
+                                                
                                                 <div class="form-group mb-2 ml-2">
                                                     <label for="conf_password">Website</label>
                                                     <div class="input-group">
                                                         <input type="text" value="{{ old('website') }}" class="form-control form-control-sm" name="website" id="website" placeholder="Enter website">
                                                     </div>
                                                 </div>
+                                                <div class="form-group mb-2">
+                                                    <label for="Image">Image<span class="text-danger">*</span></label>
+                                                    <div class="input-group">
+                                                        <input type="file" class="form-control form-control-sm" name="image" required>
+                                                    </div>
+                                                </div>
                                                 <div class="form-group mb-2 ml-2">
                                                     <label for="conf_password">Confirm Password<span class="text-danger">*</span></label>
                                                     <div class="input-group">
                                                         <input type="password" class="form-control form-control-sm" name="con_pass" id="con_pass" placeholder="Enter Confirm Password" required>
+                                                    </div>
+                                                </div>
+                                                <br>
+                                                <div class="form-group mb-2">
+                                                    <label for="res_name">About Resturant</label>
+                                                    <div class="input-group">
+                                                        <textarea  class="form-control form-control-sm" name="description" rows="6" >{{ old('description') }}</textarea>
                                                     </div>
                                                 </div>
                                                 
