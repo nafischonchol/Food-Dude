@@ -90,12 +90,34 @@ $iconarray = [
                     </ul>
                 </li>
                 <li class="active">
+                    <a href="#gallery" data-toggle="collapse" aria-expanded="false"
+                        class="dropdown-toggle">
+                        <i class="fas fa-dna"></i> <small>Gallery</small>
+                    </a>
+
+                    <ul class="collapse list-unstyled" id="gallery">
+                        <li>
+                            <a href="{{route ('show-galleries') }}">
+                                <i class="fas fa-circle"></i>
+                                <small>Show</small>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="active">
                     <a href="#setting" data-toggle="collapse" aria-expanded="false"
                         class="dropdown-toggle">
                         <i class="fas fa-user-cog"></i> <small>Setting</small>
                     </a>
 
                     <ul class="collapse list-unstyled" id="setting">
+                        <li>
+                            <a href="{{route ('resturant-profile') }}">
+                                <i class="fas fa-circle"></i>
+                                <small>Profile</small>
+                            </a>
+                        </li>
                         <li>
                             <a href="{{route ('resturant-logout') }}">
                                 <i class="fas fa-circle"></i>
@@ -104,6 +126,8 @@ $iconarray = [
                         </li>
                     </ul>
                 </li>
+
+               
             </ul>
             
         </nav>
