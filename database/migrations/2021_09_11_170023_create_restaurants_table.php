@@ -27,6 +27,10 @@ class CreateRestaurantsTable extends Migration
             $table->string('pass');
             $table->string('image')->nullable();
             $table->integer('view_count')->default(0);
+            
+            $table->text('note')->nullable();
+            $table->text('diningInfo')->nullable();
+            $table->integer('zactive')->default(1);
             $table->timestamps();
         });
     }
