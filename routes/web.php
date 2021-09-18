@@ -12,8 +12,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\IamRestaurant;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\YourTableController;
-
-
+use App\Http\Controllers\GalleryController;
 
 
 //iamresturant
@@ -28,12 +27,17 @@ Route::get('iamrestaurant-reg',function(){
 Route::post('iamrestaurant-reg',[IamRestaurant::class,'createResturant'])->name('iamrestaurant-reg');
 
 //without login, can't access these route
-Route::group(['middleware'=>['resturantLogin']],function(){
+Route::group(['middleware'=>['resturantLogin']],function()
+{
+
+    Route::get('edit-resturant',[IamRestaurant::class,'editForm'])->name('edit-resturant');
+    Route::post('iamrestaurant-update',[IamRestaurant::class,'updateResturnat'])->name('iamrestaurant-update');
+    
     Route::get('mainmenu',function(){
-        return view('iamrestaurant.mainmenu');
+        return redirect('your-table');
     })->name('mainmenu');
     
-    Route::get('orders',[OrderController::class,'index'])->name('orders');
+    Route::get('orders',[OrderController::class,'orderShow'])->name('orders');
     Route::get('your-table',[YourTableController::class,'index'])->name('your-table');
 
     Route::get('create-table',function(){
@@ -42,37 +46,37 @@ Route::group(['middleware'=>['resturantLogin']],function(){
     Route::Post('create-table',[YourTableController::class,'create'])->name('create-table');
     Route::get('your-table-edit/{id}',[YourTableController::class,'editForm'])->name('your-table-edit');
     Route::post('table-edit',[YourTableController::class,'edit'])->name('table-edit');
+
+    Route::get('show-galleries',[GalleryController::class,'index'])->name('show-galleries');
     
+    Route::get('resturant-profile',[IamRestaurant::class,'resturantProfile'])->name('resturant-profile');
+
     Route::get('resturant-logout',[IamRestaurant::class,'logout'])->name('resturant-logout');
-});
-
-
-
-
-Route::get('/', function () {
-    return view('welcome');
-});
-Route::get('/cookfood', function () {
-    return view('CookFood');
 });
 
 Route::get('/searching_restaurant', function (){
 
     $popularRestaurants = Restaurant::latest()->take(5)->get();
 
-    return view ('Searchingrestaurant', [
-        'popular_restaurants'   => $popularRestaurants,
-    ]);
+    return view ('searching.searching_res', ['popular_restaurants'=>$popularRestaurants,]);
 });
-//me
-// Route::get('/searching_recent_restaurant', function (){
+Route::get('/', function () {
+    return view('welcome');
+})->name('/');
 
-//     $recentlyviewedrestaurants = Restaurant::latest()->take(5)->get();
+Route::get('/search_restaurant', [SearchRestaurantController::class, 'search'])->name('search_restaurant');
+Route::get('completereservation/{res_id}/{hour}',[SearchRestaurantController::class,'com_reservation'])->name('completereservation');
 
-//     return view ('Searchingrestaurant', [
-//         'recentlyviewedrestaurants'   => $recentlyviewedrestaurants,
-//     ]);
-// });
+Route::post('create-order',[OrderController::class,'createOrder'])->name('create-order');
+
+
+
+
+
+
+Route::get('/cookfood', function () {
+    return view('CookFood');
+});
 
 Route::get('/recipe-details', function (){
     return view ('RecipeDetails');
@@ -86,9 +90,7 @@ Route::get('/interior', function (){
 Route::get('/exterior', function (){
     return view('exterior');
 });
-Route::get('/completereservation', function (){
-    return view('completereservation');
-});
+
 
 
 Route::get('/CookFood',function (){
@@ -111,7 +113,7 @@ Route::get('recipes/create', [SearchRecipeController::class, 'create'])->name('r
 Route::post('recipes', [SearchRecipeController::class, 'store'])->name('recipes.store');
 
 //search restaurants
-Route::get('/searchrestaurant', [RestaurantController::class, 'index'])->name('searchrestaurant');
+
 Route::get('restaurants/create', [RestaurantController::class, 'create'])->name('restaurants.create');
 Route::post('restaurants', [RestaurantController::class, 'store'])->name('restaurants.store');
 
