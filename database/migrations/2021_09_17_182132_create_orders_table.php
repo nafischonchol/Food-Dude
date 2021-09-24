@@ -23,14 +23,13 @@ class CreateOrdersTable extends Migration
                 $table->string('lname');
                 $table->string('mobile');
                 $table->string('specialReq');
-
                 $table->integer('hour_id')->default(0);
                 $table->string('hours');
                 $table->string('date');
                 $table->integer('people');
                 $table->string('zactive')->default('Pending');
                 $table->string('email')->default('NULL');
-
+                $table->string('transaction_id')->default('NULL');
                 $table->timestamps();
             
         });

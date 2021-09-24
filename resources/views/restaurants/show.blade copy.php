@@ -22,10 +22,7 @@
 <body>
 
     @php
-        // $res_id=request()->restaurant;
-
-       
-        
+        $res_id=request()->restaurant;
     @endphp
     <div class="header-absolute">
         <div class="header-area">
@@ -85,16 +82,29 @@
                 <div class="reservation-sec">
                     <div class="items">
                         <li><a href="#">Overview</a></li>
-                        <li><a href="{{ route('gallery',["$res_id"]) }}">Gallery</a></li>
+                        <li><a href="#gallery">Gallery</a></li>
                         
-                       
+                        <li><a href="#reviews">Reviews</a></li>
                         <hr>
                         <div class="rest-title">
                             <p class="title-rest">{{ $restaurant->res_name }}</p>
                             <hr>
                         </div>
                         <div class="rest-desc">
-                           
+                            <div class="row">
+                                <div class="col-md-5  align">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <span class="desc-p-rate">4.4</span>
+                                </div>
+                                <div class="col-md-5 text-right">
+                                    <span class="desc-p"> <i class="fa fa-comment"></i>13 reviews</span>
+                                </div>
+                                
+                            </div>
                             <div class="descr">
                                 <br>
                                 <p class="desc-k">{{ $restaurant->description }}</p>
@@ -103,8 +113,8 @@
                                 <div class="item">
                                     <ul>
                                         <li><a href="{{ route('foods',["$res_id"]) }}">Food</a></li>
-                                        <li><a href="{{ route('interior',["$res_id"]) }}">Interior</a></li>
-                                        <li><a href="{{ route('exterior',["$res_id"]) }}">Exterior</a></li>
+                                        <li><a href="/interior">Interior</a></li>
+                                        <li><a href="/exterior">Exterior</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -179,7 +189,8 @@
                                                             echo "<optgroup label='".$item->menuType."'>";
                                                         }
                                                     @endphp
-                                                    
+                                                    {{-- <option value="{{asset('showmenuitem') }}" >{{$item->category}} </option> --}}
+
                                                     <option value="{{ route('showmenuitem',["$res_id","$item->category"]) }}">{{$item->category}} </option>
 
                                                 @endforeach
@@ -191,6 +202,83 @@
                                 </div>
                             </div>
                         </div>
+
+                        {{-- review section start --}}
+
+                        <div class="review-sec">
+                            <div class="row">
+                                <div class="col-md-6 text-left">
+                                    <p class="review-title">Reviews</p><br>
+                                    <p class="review-lists"> What 13 peoples are saying</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row each-person-review">
+                            <div class="col-md-4 user-sec">
+                                <div class="user-title">
+                                    <p class="name-width">Tanjir islam</p>
+                                </div>
+                                <div class="user-image">
+                                    <img src="/images/bg-3.jpg" alt="">
+                                </div>
+
+                            </div>
+                            <div class="col-md-8 ratings-reviews">
+                                <div class="r-ratings">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <div class="review-desc">
+                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta expedita quasi
+                                        sapiente.
+                                        Libero doloremque recusandae illum rem sit perspiciatis. Corrupti, illum ipsam,
+                                        impedit
+                                        voluptas beatae minus placeat sed tenetur dignissimos consequatur laboriosam
+                                        ullam hic
+                                        modi inventore! Consequuntur a ut quod.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row each-person-review">
+                            <div class="col-md-4 user-sec">
+                                <div class="user-title">
+                                    <p class="name-width">Tanjir islam</p>
+                                </div>
+                                <div class="user-image">
+                                    <img src="/images/bg-3.jpg" alt="">
+                                </div>
+
+                            </div>
+                            <div class="col-md-8 ratings-reviews">
+                                <div class="r-ratings">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <div class="review-desc">
+                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta expedita quasi
+                                        sapiente.
+                                        Libero doloremque recusandae illum rem sit perspiciatis. Corrupti, illum ipsam,
+                                        impedit
+                                        voluptas beatae minus placeat sed tenetur dignissimos consequatur laboriosam
+                                        ullam hic
+                                        modi inventore! Consequuntur a ut quod.</p>
+                                </div>
+                            </div>
+                        </div>
+                   
+                        previous 1 2 3 Next
+
+
+                        {{-- review section end --}}
+
+
+
                     </div>
                 </div>
             </div>
@@ -202,60 +290,42 @@
                     <hr>
                 </div>
                
-                <form method="get" action="{{ route('findTime',["$res_id"])}}">
-                    @csrf
-                    <div class="row">
-                        <input type="hidden" name="res_id" value="{{ $res_id}}">
-                        <div class="col-md-5">
-                            <label for="start">Date</label><br>
-                            <input class="date" type="date" id="start" name="date" value="{{ date('Y-m-d')}}" min="2021-09-25" max="2025-12-31">
-                        </div>
-                        <div class="col-md-7">
-                            <div class="party-person">
-                                <P>Party size</P>
-                                <select name="people">
-                                   
-                                    @for($i=1;$i<20;$i++)
-                                        <option value="{{$i}}">{{$i}} people</option>
-                                    @endfor
-                                </select>
-                                
-                            </div>
+                <div class="row">
+                    <div class="col-md-5">
+                        <label for="start">Date</label><br>
+                        <input class="date" type="date" id="start" name="trip-start" value="2018-07-22" min="2018-01-01" max="2018-12-31">
+                    </div>
+                    <div class="col-md-7">
+                        <div class="party-person">
+                            <P>Party size</P>
+                            <select name="Person">
+                                <option value="Select People">Select people</option>
+                                 @for($i=1;$i<20;$i++)
+                                    <option value="{{$i}}">{{$i}} people</option>
+                                 @endfor
+                            </select>
+                            
                         </div>
                     </div>
-                    <button class="find-time" type="submit">Find a Time</button>
-                </form>
-                <br>
-                
-                    @isset($time)
-                    <div class="button">
-                        @foreach ($time as $item)
-                            <a href="{{ route('completereservation',[$res_id,$item->hours])}}"><button class="btn btn-primary " type="submit">{{$item->hours}}*</button></a>
-
-                            {{-- <a href=""><button type="submit">{{$item->hours}}*</button></a> --}}
-                        @endforeach
-                    </div>
-
-                    @endisset
-                    
-                 
-
-                <p class="booked-time"><i class="fa fa-book"></i> Booked {{$menus[0]->booked}} times today</p>
+                </div>
+                <button class="find-time" type="submit">Find a Time</button>
+                <p class="booked-time"><i class="fa fa-book"></i>Booked 12 times todday</p>
 
             </div>
-            
 
-            {{-- <div class="operation-time">
+
+            <div class="operation-time">
                 <span>
                     <p id="h-operation"> <i class="fa fa-clock-o" aria-hidden="true"></i> Hours of operation</p>
                     <p class="item-time">{{ $restaurant->hours_of_operation }}</p>
+
                 </span>
-            </div> --}}
-            <br>
+            </div>
             <br>
             <div class="restaurant-desc">
                 <p class="item-time"><i class="fa fa-spoon" aria-hidden="true"></i> Restaurant</p>
                 <p class="item-schedule"> International</p>
+               
                 <p class="item-time">Location</p>
                 <p class="item-schedule">{{ $restaurant->location }}</p>
                 <p class="item-time"><i class="fa fa-window-maximize" aria-hidden="true"></i> Website</p>

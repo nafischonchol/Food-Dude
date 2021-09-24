@@ -17,6 +17,8 @@ class CreateGalleriesTable extends Migration
             $table->id();
             $table->integer('res_id');
             $table->string('image');
+            $table->string('imageType');
+
             $table->string('zactive')->default(1);
             $table->timestamps();
         });

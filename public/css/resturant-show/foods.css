@@ -1,22 +1,8 @@
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-
-	<script src="{{ asset('js/app.js') }}"></script>
-
-	<link rel="stylesheet" href="{{ asset('css/app.css') }}">
-</head>
-<style>
-
 *{margin: 0; padding: 0;}
 body{
     background-image:url("/images/bg-6.jpg");
-   
+   ;
 	
 }
 .container
@@ -119,30 +105,5 @@ body{
 .heading:hover{
     color: white;
 }
-      
+     
     
-</style>
-<body>
-    <div class="heading">
-        <a href="/ownrestaurant"><img src="/images/logo.png" alt=""></a>
-    </div>
-    <div class="container">
-        <div class="top">
-            <ul>
-                <li><a href="#img_1"><img src="/images/3.jpg"></a></li>
-                <li><a href="#img_2"><img src="/images/4.jpg"></a></li>
-                <li><a href="#img_3"><img src="/images/5.jpg"></a></li>
-                <li><a href="#img_4"><img src="/images/7.jpg"></a></li>
-                <li><a href="#img_5"><img src="/images/10.jpg"></a></li>
-                
-                
-            </ul>
-            <a href="#_1" class="lightbox trans" id="img_1"><img src="/images/3.jpg"></a>
-            <a href="#_2" class="lightbox trans" id="img_2"><img src="/images/4.jpg"></a>
-            <a href="#_3" class="lightbox trans" id="img_3"><img src="/images/5.jpg"></a>
-            <a href="#_3" class="lightbox trans" id="img_4"><img src="/images/7.jpg"></a>
-            <a href="#_3" class="lightbox trans" id="img_5"><img src="/images/10.jpg"></a>
-        </div>
-    </div>
-</body>
-</html>

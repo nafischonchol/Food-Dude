@@ -42,23 +42,26 @@
                             </span>
                         @endif
                       
-                        <form action="{{ route('create-order') }}" method="post">
+                        
+                          <form action="{{ url('/pay') }}" method="POST">
+
                             @csrf
                           
                             <input type="hidden" name="res_name" value="{{$data[0]->res_name}}">
-                            <input type="hidden" name="date" value="{{session('reserve_hour')}}">
+                            <input type="hidden" name="date" value="{{session('reserve_hour')}}" >
                             <input type="hidden" name="res_id" value="{{$data[0]->id}}">
 
    
-                            <input type="text" name='fname' placeholder="First name">
-                            <input type="text" name='lname' placeholder="Last name"><br>
+                            <input type="text" name='fname' placeholder="First name" value="{{ old('fname') }}">
+                            <input type="text" name='lname' placeholder="Last name" value="{{ old('lname') }}"><br>
                            
-                            <input name="mobile" type="text" placeholder="Phone number">
-                            <input type="email" name="email" placeholder="E-mail">
-                            <textarea  id="textarea" name='specialReq' placeholder="Add a special request(optional)"></textarea>
+                            <input name="mobile" type="text" placeholder="Mobile number" value="{{ old('mobile') }}">
+                            <input type="email" name="email" placeholder="E-mail" value="{{ old('email') }}">
+                            <textarea  id="textarea" name='specialReq' placeholder="Add a special request(optional)">{{ old('specialReq') }}</textarea>
                           
                             <button id="b-utton" type="submit">Complete reservation</button>
 
+                            
                         </form>
                         <p id="terms">By clicking “Complete reservation” you agree to the Food Dude Terms of Use and Privacy
                             Policy. Standard text message rates may apply.</p>
@@ -83,6 +86,18 @@
         <script src="owlcarousel/owl.carousel.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+        <script>
+            (function (window, document) {
+                var loader = function () {
+                    var script = document.createElement("script"), tag = document.getElementsByTagName("script")[0];
+                    script.src = "https://sandbox.sslcommerz.com/embed.min.js?" + Math.random().toString(36).substring(7);
+                    tag.parentNode.insertBefore(script, tag);
+                };
+
+                window.addEventListener ? window.addEventListener("load", loader, false) : window.attachEvent("onload", loader);
+            })(window, document);
+        </script>
     </body>
 
     </html>

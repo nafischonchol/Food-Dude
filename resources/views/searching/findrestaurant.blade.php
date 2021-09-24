@@ -11,21 +11,7 @@
 @section('content')
     <div class="bg-image"></div>
 
-    {{-- You can't search again from there. If you want to search again, then you have to go back. --}}
-    {{-- <div class="bg-text">
-        <form action="{{ route('search_restaurant_again') }}" method="GET">
-            <input type="date" class="birthday" id="birthday" name="set date">
-            
-            <select id="peoplepicker" name="people">
-                @for ($i = 1; $i < 20; $i++)
-                    <option value="{{ $i }}">{{ $i }} People</option>
-                @endfor
-            </select>
-            <input type="text" name="location" placeholder="Location,Restaurant">
-            <button type="submit" value="Submit">Submit</button>
-            </button>
-        </form>
-    </div> --}}
+ 
 
     <div class="rest-available-sec">
         <div class="container">
@@ -45,9 +31,10 @@
 
         @forelse ($restaurant as $rest)
             <div class="rest-display">
-
-                
-                <img height="215" width="215" src="{{ asset("images/resturant/".$rest->image) }}" alt="">
+                {{-- rest->id --}}
+                <a href=" {{ route('restaurants.show',["$rest->id"]) }} ">
+                    <img height="215" width="215" src="{{ asset("images/resturant/".$rest->image) }}" alt="">
+                </a>
 
                 <div class="time-set">
                     <h3 >{{ $rest->res_name }}</h3>

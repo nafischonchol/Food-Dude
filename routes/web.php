@@ -13,6 +13,9 @@ use App\Http\Controllers\IamRestaurant;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\YourTableController;
 use App\Http\Controllers\GalleryController;
+use App\Http\Controllers\MenuController;
+use App\Http\Controllers\SslCommerzPaymentController;
+
 
 
 //iamresturant
@@ -47,19 +50,42 @@ Route::group(['middleware'=>['resturantLogin']],function()
     Route::get('your-table-edit/{id}',[YourTableController::class,'editForm'])->name('your-table-edit');
     Route::post('table-edit',[YourTableController::class,'edit'])->name('table-edit');
 
+    Route::get('show-admin-manu', [MenuController::class, 'showAdminMenu'])->name('show-admin-manu');
+    Route::get('admin-menu-form', [MenuController::class, 'formPage'])->name('admin-menu-form');
+
+    Route::post('create-admin-menu', [MenuController::class, 'create'])->name('create-admin-menu');
+
     Route::get('show-galleries',[GalleryController::class,'index'])->name('show-galleries');
+    Route::get('from-gallery',[GalleryController::class,'from'])->name('from-gallery');
+    Route::POST('create-admin-gallery',[GalleryController::class,'save'])->name('create-admin-gallery');
+
+   
     
     Route::get('resturant-profile',[IamRestaurant::class,'resturantProfile'])->name('resturant-profile');
 
     Route::get('resturant-logout',[IamRestaurant::class,'logout'])->name('resturant-logout');
 });
 
+// SSLCOMMERZ Start
+Route::get('/example1', [SslCommerzPaymentController::class, 'exampleEasyCheckout']);
+Route::get('/example2', [SslCommerzPaymentController::class, 'exampleHostedCheckout']);
+
+Route::post('/pay', [SslCommerzPaymentController::class, 'index']);
+Route::post('/pay-via-ajax', [SslCommerzPaymentController::class, 'payViaAjax'])->name('pay-via-ajax');
+
+Route::post('/success', [SslCommerzPaymentController::class, 'success']);
+Route::post('/fail', [SslCommerzPaymentController::class, 'fail']);
+Route::post('/cancel', [SslCommerzPaymentController::class, 'cancel']);
+
+Route::post('/ipn', [SslCommerzPaymentController::class, 'ipn']);
+//ssl end
+
 Route::get('/searching_restaurant', function (){
 
     $popularRestaurants = Restaurant::latest()->take(5)->get();
 
     return view ('searching.searching_res', ['popular_restaurants'=>$popularRestaurants,]);
-});
+})->name('searching_restaurant');
 Route::get('/', function () {
     return view('welcome');
 })->name('/');
@@ -67,10 +93,30 @@ Route::get('/', function () {
 Route::get('/search_restaurant', [SearchRestaurantController::class, 'search'])->name('search_restaurant');
 Route::get('completereservation/{res_id}/{hour}',[SearchRestaurantController::class,'com_reservation'])->name('completereservation');
 
+
 Route::post('create-order',[OrderController::class,'createOrder'])->name('create-order');
+Route::get('restaurants_show/{restaurant}', [RestaurantController::class, 'show'])->name('restaurants.show');
+
+Route::get('/showmenuitem/{res_id}/{category}',[RestaurantController::class,'showMenu'])->name('showmenuitem');
+
+Route::get('eachitemmenu/{res_id}/{subCatergory}',[RestaurantController::class,'eachItem'])->name('eachitemmenu');
 
 
 
+Route::get('gallery/{res_id}', [RestaurantController::class,'gallery'])->name('gallery');
+Route::get('foods/{res_id}', [RestaurantController::class,'foods'])->name('foods');
+Route::get('interior/{res_id}', [RestaurantController::class,'interior'])->name('interior');
+Route::get('exterior/{res_id}', [RestaurantController::class,'exterior'])->name('exterior');
+
+
+Route::get('findTime/{res_id}',[RestaurantController::class,'findTime'])->name('findTime');
+
+
+
+// ///////////////////////////////////////////////////
+
+
+// //////////
 
 
 
@@ -81,9 +127,7 @@ Route::get('/cookfood', function () {
 Route::get('/recipe-details', function (){
     return view ('RecipeDetails');
 });
-Route::get('/food', function (){
-    return view('food');
-});
+
 Route::get('/interior', function (){
     return view('interior');
 });
@@ -124,4 +168,4 @@ Route::get('/recentallrestaurants', [App\Http\Controllers\RecentallViewRestauran
 Route::get('/popularallrestaurants', [App\Http\Controllers\PopularallViewRestaurantController::class, 'show'])->name('restaurants.popularrestaurant');
 
 
-Route::get('restaurants/{restaurant}', [RestaurantController::class, 'show'])->name('restaurants.show');
+// 

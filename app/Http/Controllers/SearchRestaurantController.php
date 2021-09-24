@@ -32,13 +32,13 @@ class SearchRestaurantController extends Controller
         session()->put('reserve_hour',$hour);
 
     
-
-    
+        
         $date=session('date');
         $people=session('people');
         $result=compact("date","hour","people");
         $data=Restaurant::where('id',$res_id)->get();
-        
+
+       
         return view('searching.completereservation',['data'=>$data,'result'=>$result]);
         
     }

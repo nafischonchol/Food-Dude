@@ -90,6 +90,20 @@ $iconarray = [
                     </ul>
                 </li>
                 <li class="active">
+                    <a href="#menu" data-toggle="collapse" aria-expanded="false"
+                        class="dropdown-toggle">
+                        <i class="fas fa-medkit"></i> <small>Menu</small>
+                    </a>
+                    <ul class="collapse list-unstyled" id="menu">
+                        <li>
+                            <a href="{{route ('show-admin-manu') }}">
+                                <i class="fas fa-circle"></i>
+                                <small>Show Menu</small>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="active">
                     <a href="#gallery" data-toggle="collapse" aria-expanded="false"
                         class="dropdown-toggle">
                         <i class="fas fa-dna"></i> <small>Gallery</small>

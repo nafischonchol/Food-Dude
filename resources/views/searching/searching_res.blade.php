@@ -7,7 +7,15 @@
 @section('content')
 
     <div class="bg-image"></div>
-    <h1 class="nametag">Find your table for any occasion</h1>
+     
+    <h1 class="nametag">
+        Find your table for any occasion
+        @if (session('success'))
+            <span class="alert alert-warning " role="alert">
+                <h3>{{ session('success') }}</h3>
+            </span>
+        @endif
+    </h1>
     
     <div class="bg-text">
         @if (session('warning'))
@@ -33,72 +41,11 @@
         </form>
     </div>
     </div>
-    <div id="main">
-        <div>
-            <h3 class="tomorrrowlunch">Recently viewed </h3>
-        </div>
-        <div class="view"><a href="{{ route('restaurants.recentlyviewed') }}">view all</a></div>
-    </div>
-
-
-    <hr class="pr">
-
-    <div class="boxes">
-        @forelse ($popular_restaurants as $restaurant)
-            <a href="{{ route('restaurants.show', $restaurant->id) }}">
-                <div class="bord-bottom">
-                    <div class="menu-box ">
-                        <div class="menu-image">
-                            <img src="{{ Str::startsWith($restaurant->image, 'http') ? $restaurant->image : asset("storage/$restaurant->image") }}"
-                                alt="">
-                            <div class="menu-title">
-                                <p>{{ $restaurant->title }}</p>
-                            </div>
-                            <div class="menu-location">
-                                <p>{{ $restaurant->location }}</p>
-                            </div>
-                            <div class="menu-ratings">
-                                <svg height="20px" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
-                                    viewBox="0 0 20 20" fill="currentColor">
-                                    <path
-                                        d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                                </svg>
-                                <svg height="20px" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
-                                    viewBox="0 0 20 20" fill="currentColor">
-                                    <path
-                                        d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                                </svg>
-                                <svg height="20px" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
-                                    viewBox="0 0 20 20" fill="currentColor">
-                                    <path
-                                        d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                                </svg>
-                                <svg height="20px" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
-                                    viewBox="0 0 20 20" fill="currentColor">
-                                    <path
-                                        d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                                </svg>
-                                <svg height="20px" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
-                                    viewBox="0 0 20 20" fill="currentColor">
-                                    <path
-                                        d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                                </svg>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </a>
-        @empty
-            <div>No restaurant found.</div>
-        @endforelse
-
-
-    </div>
+   
     <div id=Pmain>
         <div>
             <h3 class="popularrestaurant">Popular restaurants in Dhaka Division</h3>
         </div>
-        <div class="viewP"><a href="{{ route('restaurants.popularrestaurant') }}">view all</a></div>
     </div>
 
     <hr class="pr">
@@ -109,7 +56,7 @@
                 <div class="bord-bottom">
                     <div class="menu-box ">
                         <div class="menu-image">
-                            <img src="{{ Str::startsWith($restaurant->image, 'http') ? $restaurant->image : asset("storage/$restaurant->image") }}"
+                            <img src="{{ asset('images/resturant/'.$restaurant->image) }}"
                                 alt="">
                             <div class="menu-title">
                                 <p>{{ $restaurant->title }}</p>
@@ -118,31 +65,11 @@
                                 <p>{{ $restaurant->location }}</p>
                             </div>
                             <div class="menu-ratings">
-                                <svg height="20px" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
-                                    viewBox="0 0 20 20" fill="currentColor">
-                                    <path
-                                        d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                                </svg>
-                                <svg height="20px" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
-                                    viewBox="0 0 20 20" fill="currentColor">
-                                    <path
-                                        d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                                </svg>
-                                <svg height="20px" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
-                                    viewBox="0 0 20 20" fill="currentColor">
-                                    <path
-                                        d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                                </svg>
-                                <svg height="20px" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
-                                    viewBox="0 0 20 20" fill="currentColor">
-                                    <path
-                                        d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                                </svg>
-                                <svg height="20px" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
-                                    viewBox="0 0 20 20" fill="currentColor">
-                                    <path
-                                        d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                                </svg>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
                             </div>
                         </div>
                     </div>
