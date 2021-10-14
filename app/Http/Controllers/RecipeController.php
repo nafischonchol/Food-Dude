@@ -36,15 +36,14 @@ class RecipeController extends Controller
     }
     function searchRecipe(Request $req)
     {
-        $query = $req->get('query');
-        
-        $sql="SELECT * FROM `recipes` where title like '%".$query."%' or  description like '%".$query."%' or method like '%".$query."%' or cat like '%".$query."%' or ingre like '%".$query."%'";
+        //Here, use regular expression from https://stackoverflow.com/questions/1127088/mysql-like-in.
 
+        //here we need to use like in. but mysql have not like in operator together. 
+        $query = $req->get('query');   
+        $query=str_replace(","," |",$query);
+        $sql="SELECT * FROM `recipes` where title REGEXP  '".$query."' or  description REGEXP '".$query."' or method REGEXP '".$query."' or cat REGEXP '".$query."' or ingre REGEXP '".$query."'";
         
         $recipes=DB::select($sql);
-
-        
-
         return view('cookfood.search-recipe', compact('recipes'));
     }
     public function create()
