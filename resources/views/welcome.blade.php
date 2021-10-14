@@ -40,7 +40,7 @@
                 </a>
             </div>
             <div class="part3">
-                <a href="CookFood">
+                <a href="{{ route('cookfood')}}">
                     <h3>Cook Food</h3>
                 </a>
             </div>

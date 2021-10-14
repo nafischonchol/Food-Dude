@@ -1,156 +1,81 @@
-@extends('layouts.app')
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>FoodDude</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    
 </head>
-<style>
-    @import url(https://fonts.googleapis.com/css?family=Lily+Script+One);
 
-body {
-	margin:0;
-	font-family:arial,tahoma,sans-serif;
-	font-size:12px;
-	font-weight:normal;
-	direction:ltr;
-  background:white;
-}
-
-form {
-	margin:10% auto 0 auto;
-	padding:30px;
-	width:400px;
-	height:auto;
-	overflow:hidden;
-	background:white;
-	border-radius:10px;
-}
-
-form label {
-	font-size:14px;
-	color:darkgray;
-	cursor:pointer;
-}
-
-form label,
-form input {
-	float:left;
-	clear:both;
-}
-
-form input {
-	margin:15px 0;
-	padding:15px 10px;
-	width:100%;
-	outline:none;
-	border:1px solid #bbb;
-	border-radius:20px;
-	display:inline-block;
-	-webkit-box-sizing:border-box;
-	   -moz-box-sizing:border-box;
-	        box-sizing:border-box;
-    -webkit-transition:0.2s ease all;
-	   -moz-transition:0.2s ease all;
-	    -ms-transition:0.2s ease all;
-	     -o-transition:0.2s ease all;
-	        transition:0.2s ease all;
-}
-
-form input[type=text]:focus,
-form input[type="password"]:focus {
-	border-color:cornflowerblue;
-}
-
-input[type=submit] {
-	padding:15px 50px;
-	width:auto;
-	background:#1abc9c;
-	border:none;
-	color:white;
-	cursor:pointer;
-	display:inline-block;
-	float:right;
-	clear:right;
-	-webkit-transition:0.2s ease all;
-	   -moz-transition:0.2s ease all;
-	    -ms-transition:0.2s ease all;
-	     -o-transition:0.2s ease all;
-	        transition:0.2s ease all;
-}
-
-input[type=submit]:hover {
-	opacity:0.8;
-}
-
-input[type="submit"]:active {
-	opacity:0.4;
-}
-
-.forgot,
-.register {
-	margin:10px;
-	float:left;
-	clear:left;
-	display:inline-block;
-	color:cornflowerblue;
-	text-decoration:none;
-}
-
-.forgot:hover,
-.register:hover {
-	color:darkgray;
-}
-
-#logo {
-	margin:0 auto;
-	width:200px;
-	font-family:'Lily Script One', cursive;
-	font-size:60px;
-	font-weight:bold;
-	text-align:center;
-	color:lightgray;
-	-webkit-transition:0.2s ease all;
-	   -moz-transition:0.2s ease all;
-	    -ms-transition:0.2s ease all;
-	     -o-transition:0.2s ease all;
-	        transition:0.2s ease all;
-}
-button{
-    border: none;
-    background-color: #888;
-    padding: 10px;
-    border-radius: 10px;
-}
-#logo:hover {
-	color:cornflowerblue;
-}
-</style>
 <body>
-    @section('content')
-    <form action="{{ route('recipes.store') }}" method="post" enctype="multipart/form-data">
 
-        @csrf
-            <h3 id="logo">FoodDude</h3>
-        <label for="title">Title:</label>
-        <input type="text" name="title" placeholder="Title">
+    <nav class="navbar navbar-light bg-light">
+        <a class="navbar-brand" href="{{ route('cookfood') }}">FoodDude</a>
+        <a class="navbar-brand" href="{{ route('cookfood') }}">Cook Food</a>
+    </nav>
 
-        <label for="duration">Duration:</label>
-        <input type="text" name="duration" placeholder="Duration">
+    <div class="row ">
+        <div class="col-2">
 
-        <label for="author">Author:</label>
-        <input type="text" name="author" placeholder="Author">
-        <label for="image">Upload an image</label>
-        <input type="file" name="image" placeholder="Select Image">
-        <label for="description">Description:</label>
-        <textarea name="description" cols="30" rows="10" placeholder="Description"></textarea>
+        </div>
+        <div class="col-8">
+            @if(session('warning'))
+                <span class="alert alert-danger d-block mt-3">{{session('warning')}}</span>
+            @endif
+            <form action="{{ route('recipes-store') }}" method="post" enctype="multipart/form-data">
 
-        <button type="submit">Add New Recipie</button>
+                @csrf
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label>Title</label>
+                        <input type="text" class="form-control" name="title" value="{{ old('title') }}">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Duration</label>
+                        <input type="text" class="form-control" name="duration" value="{{ old('duration') }}">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label>Author</label>
+                        <input type="text" class="form-control" name="author" value="{{ old('author') }}">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Category</label>
+                        <input type="text" class="form-control" name="cat" value="{{ old('cat') }}">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label>Description</label>
+                        <textarea name="description" class="form-control" rows="4">{{ old('description') }}</textarea>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Ingredient</label>
+                        <textarea name="ingre" class="form-control" rows="4">{{ old('ingre') }}</textarea>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label>Method</label>
+                        <textarea name="method" class="form-control" >{{ old('method') }}</textarea>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Image</label>
+                        <input type="file" name="image" class="form-control">
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary form-control">Submit</button>
+            </form>
+        </div>
+    </div>
+   
 
-    </form>
-@endsection
+    
+
 </body>
 </html>
 

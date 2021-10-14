@@ -131,9 +131,12 @@ class RestaurantController extends Controller
 
         $forTime="select * from hours where tableQty>0 and res_id=".$res_id;
         $time=DB::select($forTime);
-
-        $time[0]->date=$req->date;
-        $time[0]->people=$req->people;
+        if(!empty($time[0]))
+        {
+            $time[0]->date=$req->date;
+            $time[0]->people=$req->people;
+        }
+        
 
         return view('restaurants.show',['restaurant'=>$data[0],'menus'=>$menus,'time'=>$time,'res_id'=>$res_id]);
     }

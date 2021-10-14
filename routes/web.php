@@ -15,6 +15,10 @@ use App\Http\Controllers\YourTableController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\SslCommerzPaymentController;
+use App\Http\Controllers\RecipeController;
+
+
+
 
 
 
@@ -92,41 +96,40 @@ Route::get('/', function () {
 
 Route::get('/search_restaurant', [SearchRestaurantController::class, 'search'])->name('search_restaurant');
 Route::get('completereservation/{res_id}/{hour}',[SearchRestaurantController::class,'com_reservation'])->name('completereservation');
-
-
 Route::post('create-order',[OrderController::class,'createOrder'])->name('create-order');
 Route::get('restaurants_show/{restaurant}', [RestaurantController::class, 'show'])->name('restaurants.show');
-
 Route::get('/showmenuitem/{res_id}/{category}',[RestaurantController::class,'showMenu'])->name('showmenuitem');
-
 Route::get('eachitemmenu/{res_id}/{subCatergory}',[RestaurantController::class,'eachItem'])->name('eachitemmenu');
-
-
-
 Route::get('gallery/{res_id}', [RestaurantController::class,'gallery'])->name('gallery');
 Route::get('foods/{res_id}', [RestaurantController::class,'foods'])->name('foods');
 Route::get('interior/{res_id}', [RestaurantController::class,'interior'])->name('interior');
 Route::get('exterior/{res_id}', [RestaurantController::class,'exterior'])->name('exterior');
-
-
 Route::get('findTime/{res_id}',[RestaurantController::class,'findTime'])->name('findTime');
 
+//Cookfood
+
+Route::get('/cookfood',[RecipeController::class,'cookfood'])->name('cookfood');
+Route::get('all-recipe',[RecipeController::class,'allRecipe'])->name('all-recipe');
+Route::post('/search-recipe', [RecipeController::class, 'searchRecipe'])->name('search-recipe');
+
+Route::get('/search-recipe-old', [SearchRecipeController::class, 'index'])->name('search-recipe-old');
+Route::get('recipes/create', [RecipeController::class, 'create'])->name('recipes.create');
+Route::post('recipes-store', [RecipeController::class, 'store'])->name('recipes-store');
+
+Route::get('/recipe-details/{id}',[RecipeController::class,'recipeDetails'])->name('recipe-details');
 
 
 // ///////////////////////////////////////////////////
 
 
-// //////////
+
+
+// //////////////////////////////////////////////////////////////
 
 
 
-Route::get('/cookfood', function () {
-    return view('CookFood');
-});
 
-Route::get('/recipe-details', function (){
-    return view ('RecipeDetails');
-});
+
 
 Route::get('/interior', function (){
     return view('interior');
@@ -137,24 +140,19 @@ Route::get('/exterior', function (){
 
 
 
-Route::get('/CookFood',function (){
-    return view('CookFood');
-});
 
 
 
 
 
-Route::get('search',[SearchRestaurantController::class,'sr']);
+
 
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 //search CookFood
-Route::get('/search', [SearchRecipeController::class, 'index'])->name('search');
-Route::get('recipes/create', [SearchRecipeController::class, 'create'])->name('recipes.create');
-Route::post('recipes', [SearchRecipeController::class, 'store'])->name('recipes.store');
+
 
 //search restaurants
 
@@ -166,6 +164,7 @@ Route::get('/recentallrestaurants', [App\Http\Controllers\RecentallViewRestauran
 
 //popularviewedrestaurant
 Route::get('/popularallrestaurants', [App\Http\Controllers\PopularallViewRestaurantController::class, 'show'])->name('restaurants.popularrestaurant');
+Route::get('search',[SearchRestaurantController::class,'sr']);
 
 
 // 

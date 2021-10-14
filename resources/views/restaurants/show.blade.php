@@ -208,7 +208,7 @@
                         <input type="hidden" name="res_id" value="{{ $res_id}}">
                         <div class="col-md-5">
                             <label for="start">Date</label><br>
-                            <input class="date" type="date" id="start" name="date" value="{{ date('Y-m-d')}}" min="2021-09-25" max="2025-12-31">
+                            <input class="date" type="date" id="start" name="date" value="{{ date('Y-m-d')}}" min="{{ date('Y-m-d') }}" max="2025-12-31">
                         </div>
                         <div class="col-md-7">
                             <div class="party-person">

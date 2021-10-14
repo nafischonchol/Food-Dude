@@ -26,7 +26,9 @@
         <form action="{{ route('search_restaurant') }}" class="colorchange" method="GET">
             @csrf
            
-            <input type="date" class="birthday" id="birthday" name="date">
+            {{-- <input type="date" class="birthday" id="birthday" name="date"> --}}
+
+            <input  type="date" class="birthday" id="birthday" name="date" value="{{ date('Y-m-d')}}" min="{{ date('Y-m-d')}}" max="2025-12-31">
 
             <select id="peoplepicker" name="people">
                 @for ($i = 1; $i < 20; $i++)

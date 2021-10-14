@@ -6,7 +6,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FoodDude</title>
-   
+
+
+    <!-- CSS only -->
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
     @yield('css')
 </head>
@@ -21,7 +24,7 @@
         </span>
         <nav>
             <ul class="nav-links">
-                
+
                 @guest
                     <li><a href="{{ route('login') }}">SIGN IN</a></li>
                     <li><a href="{{ route('register') }}">SIGN UP</a></li>
@@ -29,7 +32,7 @@
                     <div class="dropdown-menu dropdown-menu-right logout" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="{{ route('logout') }}"
                             onclick="event.preventDefault();
-                                                                                                                 document.getElementById('logout-form').submit();">
+                                                                                                                     document.getElementById('logout-form').submit();">
                             {{ __('Logout') }}
                         </a>
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
@@ -39,12 +42,12 @@
                 @endguest
             </ul>
         </nav>
-       
+
     </header>
     @yield('content')
 
 
-     <!-- Site footer -->
+    <!-- Site footer -->
 
 
-<!-- footer end -->
+    <!-- footer end -->
