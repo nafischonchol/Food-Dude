@@ -112,12 +112,15 @@ Route::get('/cookfood',[RecipeController::class,'cookfood'])->name('cookfood');
 Route::get('all-recipe',[RecipeController::class,'allRecipe'])->name('all-recipe');
 Route::post('/search-recipe', [RecipeController::class, 'searchRecipe'])->name('search-recipe');
 
-Route::get('/search-recipe-old', [SearchRecipeController::class, 'index'])->name('search-recipe-old');
+// Route::get('/search-recipe-old', [SearchRecipeController::class, 'index'])->name('search-recipe-old');
 Route::get('recipes/create', [RecipeController::class, 'create'])->name('recipes.create');
 Route::post('recipes-store', [RecipeController::class, 'store'])->name('recipes-store');
 
 Route::get('/recipe-details/{id}',[RecipeController::class,'recipeDetails'])->name('recipe-details');
 
+Route::get('save-recipe/{id}',[RecipeController::class,'saveRecipes'])->name('save-recipe');
+
+Route::get('list-save-recipes',[RecipeController::class,'listSaveRecipes'])->name('list-save-recipes');
 
 // ///////////////////////////////////////////////////
 
