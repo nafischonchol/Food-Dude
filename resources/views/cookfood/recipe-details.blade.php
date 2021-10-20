@@ -28,6 +28,8 @@
                     <div class="aside-option">
 
                         <a href="{{ route('all-recipe') }}">Recipes</a>
+                        <a href="{{ route('list-save-recipes') }}">Save Recipes</a>
+
                         <a href="{{ route('recipes.create') }}"> Add New</a>
                         @guest
                             <a href="{{ route('login') }}"><i class="fa fa-user"></i> SIGN IN</a>
@@ -55,9 +57,20 @@
                 <div
                     style="background:url({{asset('images/recipes/'.$item->image) }}) no-repeat 50% 50%; background-size:cover; height: 300px">
                 </div>
-
+               
                 <div class="duration">
-                  Duration: {{$item->duration." "}} 
+                    <div class="text-left">
+                        <i class="fas fa-bookmark"></i><a href="{{ route('save-recipe',[$item->id]) }}">Save This Recipe</a>
+                    </div>
+                    <div class="text-right">
+                         Duration: {{$item->duration." "}} 
+                    </div>
+                    @if(session('warning'))
+                        <div class="text-center text-danger">
+                            {{session('warning')}}
+                        </div>
+                    @endif
+                   
                 </div>
                 <div class="recipe-card__body">
                     <h1 class="recipe-card__heading">{{$item->title}}</h1>
