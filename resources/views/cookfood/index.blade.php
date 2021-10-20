@@ -36,6 +36,8 @@
                     <div class="aside-option">
                      
                         <a href="{{ route('all-recipe') }}">Recipes</a>
+                        <a href="{{ route('list-save-recipes') }}">Save Recipes</a>
+
                         <a href="{{ route('recipes.create') }}"> Add New</a>
                         @guest
                             <a href="{{ route('login') }}"><i class="fa fa-user"></i> SIGN IN</a>
