@@ -101,4 +101,38 @@ class RecipeController extends Controller
         // return back()->with('warning',"New recipe added successfully!");
         
     }
+
+    function saveRecipes($id)
+    {
+        
+
+        if (!Auth::check())
+        {    
+            return redirect('login')->with('warning','Login First');
+        } 
+        $userId = Auth::id();
+        
+        $sql="SELECT * FROM `save_recipes` where user_id=".$userId." and recipe_id=".$id;
+        $check=DB::select($sql);
+        if(isset($check[0]))
+            return back()->with('warning','Already in save list');
+        
+        $sql="insert into save_recipes (`user_id`, `recipe_id`) VALUES (".$userId.",".$id.")";
+        
+        DB::insert($sql);
+        return back()->with('warning','Successfully save');
+    }
+
+    function listSaveRecipes()
+    {
+        if (!Auth::check())
+        {    
+            return redirect('login')->with('warning','Login First');
+        } 
+        $userId = Auth::id();
+        $sql="SELECT  recipes.* FROM `save_recipes`,recipes where save_recipes.user_id=".$userId."  and recipes.id=save_recipes.recipe_id order by recipes.id desc";
+
+        $recipes=DB::select($sql);
+        return view('recipes.list-save-recipes',['recipes'=>$recipes]);
+    }
 }
