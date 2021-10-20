@@ -117,7 +117,7 @@
                     <form action="{{ route('search-recipe') }}" method="POST">
                         @csrf
                         <h2>Make recipe by your own ingredients</h2>
-                        <input type="text" name="query"  id="query" placeholder="Search..">
+                        <input type="text" name="query"  id="query" placeholder="Chicken,Potato,Onion">
                         <button type="submit" class="btn btn-danger"><i class="fa fa-search"></i></a></button>
                     </form>
                 </div>
