@@ -13,20 +13,23 @@ class CreateMenusTable extends Migration
      */
     public function up()
     {
+        
         Schema::create('menus', function (Blueprint $table) {
             $table->id();
             $table->integer('res_id');
             $table->string('res_name');
             $table->string('price');
-            $table->text('description')->default('NULL');
-            $table->text('ingredients')->default('NULL');
-            $table->text('nutrition')->default('NULL');
-            $table->string('menuType')->default('NULL');
-            $table->string('foodType')->default('NULL');
-            $table->string('category')->default('NULL');
-            $table->string('subCatergory')->default('NULL');
-            $table->string('image')->default('NULL');
+            $table->text('description')->nullable('NULL');
+            $table->text('ingredients')->nullable('NULL');
+            $table->text('nutrition')->nullable('NULL');
+            $table->string('menuType')->nullable('NULL');
+            $table->string('foodType')->nullable('NULL');
+            $table->string('category')->nullable('NULL');
+            $table->string('subCatergory')->nullable('NULL');
+            $table->string('image')->nullable('NULL');
             $table->timestamps();
+
+           
         });
     }
 
