@@ -68,7 +68,31 @@ $iconarray = [
                         <li>
                             <a href="orders">
                                 <i class="fas fa-circle"></i>
-                                <small>Show Order</small>
+                                <small>Confirm Order</small>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('waiting-room-show') }}">
+                                <i class="fas fa-circle"></i>
+                                <small>Waiting Room</small>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('complete-orders') }}">
+                                <i class="fas fa-circle"></i>
+                                <small>Complete Orders</small>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('not-complete-orders') }}">
+                                <i class="fas fa-circle"></i>
+                                <small>Not Complete Orders</small>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('decline-orders') }}">
+                                <i class="fas fa-circle"></i>
+                                <small>Decline Orders</small>
                             </a>
                         </li>
                     </ul>
