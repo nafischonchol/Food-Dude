@@ -7,6 +7,7 @@ use App\Models\Menu;
 
 use Illuminate\Http\Request;
 use DB;
+use Illuminate\Support\Facades\Auth;
 
 
 class RestaurantController extends Controller
@@ -56,6 +57,8 @@ class RestaurantController extends Controller
         $forMenu="Select *,( select count(*) from orders where orders.res_id=menus.res_id) as booked from menus where res_id=".$res_id." order by menuType";
         $menus=DB::select($forMenu);
 
+        // print_r($menus);
+        // die;
         $data=Restaurant::where('id',$res_id)->get();
         if(empty($data[0]))
             return redirect('/searching_restaurant');
@@ -117,9 +120,10 @@ class RestaurantController extends Controller
 
     function findTime(Request $req)
     {
+        if(!Auth::user())
+            return redirect('login')->with('warning','Please Login First!');
+
         
-        session()->put('date',$req->date);
-        session()->put('people',$req->people);
 
         $res_id=$req->res_id;
         $forMenu="Select *,( select count(*) from orders where orders.res_id=menus.res_id) as booked from menus where res_id=".$res_id." order by menuType";
@@ -129,15 +133,26 @@ class RestaurantController extends Controller
         if(empty($data[0]))
             return redirect('/searching_restaurant');
 
+        
+
+
+        $user_id=Auth::id();
+        $_token=$req->input('_token');
+        $zl=json_encode($req->input());
+        
+        $sql="INSERT INTO `zlogs`(`user_id`, `zinfo`, `ztoken`) VALUES (".$user_id.",'".$zl."','".$_token."')";
+        DB::insert($sql);
+
         $forTime="select * from hours where tableQty>0 and res_id=".$res_id;
         $time=DB::select($forTime);
         if(!empty($time[0]))
         {
             $time[0]->date=$req->date;
             $time[0]->people=$req->people;
+            $time[0]->_token=$_token;
         }
         
-
+      
         return view('restaurants.show',['restaurant'=>$data[0],'menus'=>$menus,'time'=>$time,'res_id'=>$res_id]);
     }
 
