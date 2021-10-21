@@ -44,7 +44,15 @@ Route::group(['middleware'=>['resturantLogin']],function()
         return redirect('your-table');
     })->name('mainmenu');
     
-    Route::get('orders',[OrderController::class,'orderShow'])->name('orders');
+    Route::get('orders',[OrderController::class,'confirmOrderShow'])->name('orders');
+    Route::get('waiting-room-show',[OrderController::class,'waitingRoomShow'])->name('waiting-room-show');
+    Route::get('complete-orders',[OrderController::class,'completeOrdersShow'])->name('complete-orders');
+    Route::get('not-complete-orders',[OrderController::class,'notCompleteOrdersShow'])->name('not-complete-orders');
+    Route::get('decline-orders',[OrderController::class,'declineOrdersShow'])->name('decline-orders');
+    
+    Route::get('order-confirm/{type}/{order_id}',[OrderController::Class,'orderConfirm'])->name('order-confirm');
+    Route::get('order-check/{user_id}/{type}/{order_id}',[OrderController::Class,'orderCheck'])->name('order-check');
+
     Route::get('your-table',[YourTableController::class,'index'])->name('your-table');
 
     Route::get('create-table',function(){
