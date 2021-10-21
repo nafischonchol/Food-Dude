@@ -25,13 +25,13 @@
                                 <h5><i class="fa fa-calendar" aria-hidden="true"></i> 
                                     
                                     @php
-                                         $date = date_create($result['date']);
+                                         $date = date_create($result->date);
                                          $date=date_format($date, 'l,F j');
                                          echo $date;
                                     @endphp 
                                 </h5>
-                                <h5><i class="fa fa-clock" aria-hidden="true"></i> {{ $result['hour'] }}</h5>
-                                <h5><i class="fa fa-user" aria-hidden="true"></i> {{ $result['people'] }} People</h5>
+                                <h5><i class="fa fa-clock" aria-hidden="true"></i> {{ $result->hour }}</h5>
+                                <h5><i class="fa fa-user" aria-hidden="true"></i> {{ $result->people }} People</h5>
                             </div>
                         </div>
                         <h4 id="d-details">Diner details</h4>
@@ -48,10 +48,10 @@
                             @csrf
                           
                             <input type="hidden" name="res_name" value="{{$data[0]->res_name}}">
-                            <input type="hidden" name="date" value="{{session('reserve_hour')}}" >
+                            <input type="hidden" name="hour" value="{{session('reserve_hour')}}" >
                             <input type="hidden" name="res_id" value="{{$data[0]->id}}">
+                            <input type="hidden" name="ztoken" value="{{$result->_token}}">
 
-   
                             <input type="text" name='fname' placeholder="First name" value="{{ old('fname') }}">
                             <input type="text" name='lname' placeholder="Last name" value="{{ old('lname') }}"><br>
                            
