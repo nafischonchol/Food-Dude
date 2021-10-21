@@ -10,9 +10,6 @@
 @endsection
 @section('content')
     <div class="bg-image"></div>
-
- 
-
     <div class="rest-available-sec">
         <div class="container">
             <div class="row">
@@ -27,12 +24,10 @@
                 </div>
             </div>
         </div>
-
-
         @forelse ($restaurant as $rest)
             <div class="rest-display">
                 {{-- rest->id --}}
-                <a href=" {{ route('restaurants.show',["$rest->id"]) }} ">
+                <a href=" {{ route('restaurants.show',[$rest->id]) }} ">
                     <img height="215" width="215" src="{{ asset("images/resturant/".$rest->image) }}" alt="">
                 </a>
 
@@ -58,7 +53,7 @@
                     @endphp
                     <div class="button">
                         @foreach ($ex as $item)
-                            <a href="{{ route('completereservation',[$rest->id,$item])}}"><button type="submit">{{$item}}*</button></a>
+                            <a href="{{ route('completereservation',[$rest->id,$item,$restaurant[0]->_token])}}"><button type="submit">{{$item}}*</button></a>
                         @endforeach
                         
                      
