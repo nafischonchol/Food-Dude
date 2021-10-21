@@ -16,7 +16,7 @@
                     <div class="col-12">
                         <div class="row">
                             <div class="col-md-8">
-                                <h3 class="card-title pull-left">Order List </h3>
+                                <h3 class="card-title pull-left">{{ $type }} Order List </h3>
                             </div>
                             <div class="col-md-12">
                                 @if (session('success'))
@@ -38,13 +38,13 @@
                                     <th>SI</th>
                                     <th>Name</th>
                                     <th>Mobile</th>
-                                    <th>Email</th>
                                     <th>Date</th>
                                     <th>Hour</th>
                                     <th>People</th>
                                     <th>Special Request</th>
-                                    <th>Status</th>
-                                    
+                                    <th>Complete</th>
+                                    <th></th>
+
                                 </tr>
                             </thead>
                             <tbody>
@@ -55,13 +55,15 @@
                                             <td>{{$loop->iteration}}</td>
                                             <td>{{$item->fName." ".$item->lname}}</td>
                                             <td>{{$item->mobile}}</td>
-                                            <td>{{$item->email}}</td>
                                             <td>{{$item->date}}</td>
                                             <td>{{$item->hour}}</td>
                                             <td>{{$item->people}}</td>
                                             <td>{{$item->specialReq}}</td>
+                                            
+                                            <td ><a class="btn btn-success" href="{{ route('order-check',[$item->user_id,'Yes',$item->id]) }}">Yes</a> </td>
 
-                                            <td>{{$item->zactive}}</td>
+                                            <td><a class="btn btn-danger" href="{{ route('order-check',[$item->user_id,'No',$item->id]) }}">No</a></td>
+
                                         </tr>
                                     @endforeach
                                 @endisset
