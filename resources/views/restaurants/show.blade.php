@@ -227,30 +227,28 @@
                 </form>
                 <br>
                 
-                    @isset($time)
-                    <div class="button">
-                        @foreach ($time as $item)
-                            <a href="{{ route('completereservation',[$res_id,$item->hours])}}"><button class="btn btn-primary " type="submit">{{$item->hours}}*</button></a>
-
-                            {{-- <a href=""><button type="submit">{{$item->hours}}*</button></a> --}}
-                        @endforeach
-                    </div>
+               
+                    @isset($time[0])
+                        <div class="button">
+                            @foreach ($time as $item)
+                                <a href="{{ route('completereservation',[$res_id,$item->hours,$time[0]->_token])}}"><button class="btn btn-primary " type="submit">{{$item->hours}}*</button></a>
+                            @endforeach
+                        </div>
 
                     @endisset
                     
                  
-
-                <p class="booked-time"><i class="fa fa-book"></i> Booked {{$menus[0]->booked}} times today</p>
+                @php
+                    $book=0;
+                    if(isset($menus[0]->booked))
+                        $book=$menus[0]->booked;
+                @endphp
+                <p class="booked-time"><i class="fa fa-book"></i> Booked {{$book}} times today</p>
 
             </div>
             
 
-            {{-- <div class="operation-time">
-                <span>
-                    <p id="h-operation"> <i class="fa fa-clock-o" aria-hidden="true"></i> Hours of operation</p>
-                    <p class="item-time">{{ $restaurant->hours_of_operation }}</p>
-                </span>
-            </div> --}}
+           
             <br>
             <br>
             <div class="restaurant-desc">
