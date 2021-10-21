@@ -37,23 +37,36 @@ class SslCommerzPaymentController extends Controller
         $post_data['currency'] = "BDT";
         $post_data['tran_id'] = uniqid(); // tran_id must be unique
 
-        $date=session('date');
-        $people=session('people');
+        //get zlogs
+        $sql="select zinfo,user_id from zlogs where ztoken='".$req->ztoken."' order by id desc limit 1";
+        $zlogs=DB::select($sql);
+        if(!isset($zlogs[0]))
+            return back()->with('warning','Token not matching!');
+        
+        $zinfoD=json_decode($zlogs[0]->zinfo);
+        $date=$zinfoD->date;
+        $hour=$zinfoD->hour;
+        $people=$zinfoD->people;
+        $user_id=$zlogs[0]->user_id;
 
-        if(empty(session('date')))
-            $date='2021-09-25';
-        if(empty(session('people')))
-            $people='5';
+        // $date=session('date');
+        // $people=session('people');
+
+        // if(empty(session('date')))
+        //     $date='2021-09-25';
+        // if(empty(session('people')))
+        //     $people='5';
 
         $data = new Order;
         $data->mobile = $req->mobile;
         $data->email = $req->email;
         $data->res_name = $req->res_name;
+        $data->user_id=$user_id;
         $data->res_id = $req->res_id;
         $data->fname = $req->fname;
         $data->lname = $req->lname;
         $data->specialReq = $req->specialReq;
-        $data->hour = $req->date;
+        $data->hour = $hour;
         $data->date =$date;
         $data->people = $people;
 
@@ -123,9 +136,15 @@ class SslCommerzPaymentController extends Controller
         $sslc = new SslCommerzNotification();
 
       
-        $order_detials = DB::table('orders')
-            ->where('transaction_id', $tran_id)
-            ->select('transaction_id', 'zactive','hour','res_id')->first();
+        // $order_detials = DB::table('orders')
+        //     ->where('transaction_id', $tran_id)
+        //     ->select('transaction_id','user_id', 'zactive','hour','res_id')->first();
+
+        $sql="SELECT transaction_id,user_id,(SELECT user_point FROM `users` where users.id=orders.user_id) as user_point, zactive,hour,res_id FROM `orders` where transaction_id='".$tran_id."' order by id desc limit 1";
+
+        $order_detials=DB::select($sql);
+        if(isset($order_detials[0]))
+            $order_detials=$order_detials[0];
 
         if ($order_detials->zactive == 'Pending') 
         {
@@ -134,23 +153,24 @@ class SslCommerzPaymentController extends Controller
             $validation = $sslc->orderValidate($request->all(), $tran_id, $amount, $currency);
 
             if ($validation == TRUE) {
-              
+
+                $zactive='Confrim';
+                $mgs="Order is successfully Completed!";
+                if($order_detials->user_point<50)
+                {
+                    $zactive='Wating Room';
+                    $mgs="You are in waiting room, due to your merit points!";
+                }
                 $update_product = DB::table('orders')
                     ->where('transaction_id', $tran_id)
-                    ->update(['zactive' => 'Confrim']);
+                    ->update(['zactive' => $zactive]);
 
-                // $sql="UPDATE `hours` SET tableQty=tableQty-1 where hours='".$order_detials->hour."' and res_id=".$order_detials->res_id;
+     
                 $sql="UPDATE `hours` SET tableQty=tableQty-1 where hours='".$order_detials->hour."' and res_id=1";
-
-                // $update_product = DB::table('hours')
-                //     ->where('hours', $order_detials->hour)
-                //     ->where('res_id', $order_detials->res_id)
-
-                //     ->update(['tableQty' => `tableQty`-1]);
 
                 DB::update($sql);
 
-                return redirect('searching_restaurant')->with('success','Order is successfully Completed');
+                return redirect('searching_restaurant')->with('success',$mgs);
             } else {
               
                 $update_product = DB::table('orders')
@@ -159,7 +179,7 @@ class SslCommerzPaymentController extends Controller
                 
                 return redirect('searching_restaurant')->with('warning','validation Fail');
             }
-        } else if ($order_detials->zactive == 'Confrim' || $order_detials->zactive == 'Complete') {
+        } else if ($order_detials->zactive == 'Confrim' || $order_detials->zactive == 'Wating Room' || $order_detials->zactive == 'Complete') {
           
             return redirect('searching_restaurant')->with('success','Order is successfully Completed');
             // echo "Transaction is successfully Completed";
