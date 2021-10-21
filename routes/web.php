@@ -94,8 +94,8 @@ Route::get('/', function () {
     return view('welcome');
 })->name('/');
 
-Route::get('/search_restaurant', [SearchRestaurantController::class, 'search'])->name('search_restaurant');
-Route::get('completereservation/{res_id}/{hour}',[SearchRestaurantController::class,'com_reservation'])->name('completereservation');
+Route::get('search_restaurant', [SearchRestaurantController::class, 'search'])->name('search_restaurant');
+Route::get('completereservation/{res_id}/{hour}/{_token}',[SearchRestaurantController::class,'com_reservation'])->name('completereservation');
 Route::post('create-order',[OrderController::class,'createOrder'])->name('create-order');
 Route::get('restaurants_show/{restaurant}', [RestaurantController::class, 'show'])->name('restaurants.show');
 Route::get('/showmenuitem/{res_id}/{category}',[RestaurantController::class,'showMenu'])->name('showmenuitem');
